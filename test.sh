@@ -6,7 +6,7 @@ mount
 df -HT
 
 curl -LOSs https://builds.tuxbuild.com/27SRt2AJZWsh6WklUTrD4wsEs8I/linux
-chmod 0755 vmlinux
+chmod 0755 linux
 
 git clone --depth=1 https://github.com/ClangBuiltLinux/boot-utils
 
