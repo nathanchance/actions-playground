@@ -22,7 +22,8 @@ if __name__ == "__main__":
 
     run(["pacman", "-Syu", "--noconfirm"])
     run(["pacman", "-S", "--noconfirm", "sudo"])
-    run(["sudo", "mount", "-t", "tmpfs", "-o", "size=2G", "tmpfs", "/tmp"])
-    os.environ["TMPDIR"] = "/tmp"
+    tmpdir = Path("/mnt/tmp")
+    run(["sudo", "mount", "-t", "tmpfs", "-o", "size=2G", "tmpfs", tmpdir])
+    os.environ["TMPDIR"] = tmpdir
 
     run([boot_utils.joinpath("boot-uml.sh"), "-k", kernel_image])
