@@ -17,6 +17,6 @@ if __name__ == "__main__":
     os.chmod(kernel_image, 0o755)
 
     boot_utils = workdir.joinpath("boot-utils")
-    run(["git", "clone", "--depth", "1", https://github.com/ClangBuiltLinux/boot-utils, boot_utils])
+    run(["git", "clone", "--depth", "1", "https://github.com/ClangBuiltLinux/boot-utils", boot_utils])
 
     run([boot_utils.joinpath("boot-uml.sh"), "-k", kernel_image])
