@@ -23,6 +23,7 @@ if __name__ == "__main__":
     run(["pacman", "-Syu", "--noconfirm"])
     run(["pacman", "-S", "--noconfirm", "sudo"])
     tmpdir = Path("/mnt/tmp")
+    run(["sudo", "mkdir", "-p", tmpdir])
     run(["sudo", "mount", "-t", "tmpfs", "-o", "size=2G", "tmpfs", tmpdir])
     os.environ["TMPDIR"] = tmpdir
 
