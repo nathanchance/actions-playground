@@ -1,0 +1,11 @@
+name: test
+jobs:
+  test:
+    name: "test"
+    runs-on: ubuntu-latest
+    container: ghcr.io/clangbuiltlinux/qemu
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: test.sh
+        run: bash test.sh
