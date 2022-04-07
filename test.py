@@ -20,6 +20,8 @@ if __name__ == "__main__":
     boot_utils = workdir.joinpath("boot-utils")
     run(["git", "clone", "--depth", "1", "https://github.com/ClangBuiltLinux/boot-utils", boot_utils])
 
+    run(["pacman", "-Syu", "--noconfirm"])
+    run(["pacman", "-S", "--noconfirm", "sudo"])
     run(["sudo", "mount", "-t", "tmpfs", "-o", "size=2G", "tmpfs", "/tmp"])
     os.environ["TMPDIR"] = "/tmp"
 
