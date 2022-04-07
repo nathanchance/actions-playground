@@ -25,6 +25,6 @@ if __name__ == "__main__":
 #    tmpdir = Path("/mnt/tmp")
 #    run(["sudo", "mkdir", "-p", tmpdir])
 #    run(["sudo", "mount", "-t", "tmpfs", "-o", "size=2G", "tmpfs", tmpdir])
-    os.environ["TMPDIR"] = "/uml"
+#    os.environ["TMPDIR"] = "/uml"
 
     run([boot_utils.joinpath("boot-uml.sh"), "-k", kernel_image])

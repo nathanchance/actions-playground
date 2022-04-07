@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/clangbuiltlinux/qemu
-      options: --tmpfs /uml
+      options: --ipc=host
     steps:
       - name: checkout
         uses: actions/checkout@v3
