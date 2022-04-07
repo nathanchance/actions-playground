@@ -10,5 +10,5 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: test.sh
-        run: bash test.sh
+      - name: test.py
+        run: python3 test.py
