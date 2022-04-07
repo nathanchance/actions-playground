@@ -10,4 +10,4 @@ chmod 0755 linux
 
 git clone --depth=1 https://github.com/ClangBuiltLinux/boot-utils
 
-boot-utils/boot-uml.sh -k linux
+boot-utils/boot-uml.sh -k $PWD/linux
