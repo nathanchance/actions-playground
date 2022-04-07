@@ -6,7 +6,9 @@ jobs:
   test:
     name: "test"
     runs-on: ubuntu-latest
-    container: ghcr.io/clangbuiltlinux/qemu
+    container:
+      image: ghcr.io/clangbuiltlinux/qemu
+      options: --tmpfs /uml
     steps:
       - name: checkout
         uses: actions/checkout@v3

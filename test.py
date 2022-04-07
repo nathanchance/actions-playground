@@ -20,11 +20,11 @@ if __name__ == "__main__":
     boot_utils = workdir.joinpath("boot-utils")
     run(["git", "clone", "--depth", "1", "https://github.com/ClangBuiltLinux/boot-utils", boot_utils])
 
-    run(["pacman", "-Syu", "--noconfirm"])
-    run(["pacman", "-S", "--noconfirm", "sudo"])
-    tmpdir = Path("/mnt/tmp")
-    run(["sudo", "mkdir", "-p", tmpdir])
-    run(["sudo", "mount", "-t", "tmpfs", "-o", "size=2G", "tmpfs", tmpdir])
-    os.environ["TMPDIR"] = tmpdir
+#    run(["pacman", "-Syu", "--noconfirm"])
+#    run(["pacman", "-S", "--noconfirm", "sudo"])
+#    tmpdir = Path("/mnt/tmp")
+#    run(["sudo", "mkdir", "-p", tmpdir])
+#    run(["sudo", "mount", "-t", "tmpfs", "-o", "size=2G", "tmpfs", tmpdir])
+    os.environ["TMPDIR"] = "/uml"
 
     run([boot_utils.joinpath("boot-uml.sh"), "-k", kernel_image])
