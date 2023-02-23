@@ -2,12 +2,12 @@ name: main
 on: [push, pull_request]
 jobs:
   check_patch_series:
-    name: do-we-need-to-run.py
+    name: should_run.py
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: do-we-need-to-run.py
-      run: python3 do-we-need-to-run.py
+    - name: should_run.py
+      run: python3 should_run.py
   python:
      strategy:
        fail-fast: false
