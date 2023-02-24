@@ -93,18 +93,19 @@ new_run_info = {
 
 # If the file already exists...
 if info_json.exists():
-    with info_json.open('r+', encoding='utf-8') as file:
+    with info_json.open(encoding='utf-8') as file:
         old_run_info = json.load(file)
+    with info_json.open('w', encoding='utf-8') as file:
         # compare the two, writing to disk and breaking as soon as there is a
         # difference
         for key in old_run_info:
             if old_run_info[key] != new_run_info[key]:
-                json.dump(new_run_info, file)
+                json.dump(new_run_info, file, indent=4, sort_keys=True)
                 break
 else:
     # Otherwise, create and write to the file
     with info_json.open('w', encoding='utf-8') as file:
-        json.dump(new_run_info, file)
+        json.dump(new_run_info, file, indent=4, sort_keys=True)
 
 subprocess.run(['git', 'add', info_json.name], check=True, cwd=repo)
 status = subprocess.run(['git', 'status', '--porcelain', '-u'],
