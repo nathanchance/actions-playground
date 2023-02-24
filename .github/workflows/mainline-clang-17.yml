@@ -4,10 +4,16 @@ jobs:
   check_patch_series:
     name: should_run.py
     runs-on: ubuntu-latest
+    container: tuxmake/x86_64_clang-nightly
     steps:
     - uses: actions/checkout@v3
     - name: should_run.py
       run: python3 should_run.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: run
+      if: failure()
+      run: echo running...
   python:
      strategy:
        fail-fast: false
