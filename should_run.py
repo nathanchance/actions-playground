@@ -95,13 +95,13 @@ new_run_info = {
 if info_json.exists():
     with info_json.open(encoding='utf-8') as file:
         old_run_info = json.load(file)
-    with info_json.open('w', encoding='utf-8') as file:
-        # compare the two, writing to disk and breaking as soon as there is a
-        # difference
-        for key in old_run_info:
-            if old_run_info[key] != new_run_info[key]:
+    # compare the two, writing to disk and breaking as soon as there is a
+    # difference
+    for key in old_run_info:
+        if old_run_info[key] != new_run_info[key]:
+            with info_json.open('w', encoding='utf-8') as file:
                 json.dump(new_run_info, file, indent=4, sort_keys=True)
-                break
+            break
 else:
     # Otherwise, create and write to the file
     with info_json.open('w', encoding='utf-8') as file:
