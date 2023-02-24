@@ -17,6 +17,11 @@ jobs:
         esac
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: check env
+      run: |
+        echo ${{ env.should_run }}
+        echo ${{ env.should_run == true }}
+        echo ${{ env.should_run == 'true' }}
     - name: run
       if: ${{ env.should_run == true }}
       run: echo running...
