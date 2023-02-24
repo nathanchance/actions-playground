@@ -8,11 +8,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: should_run.py
-      run: python3 should_run.py
+      run: |
+        python3 should_run.py
+        case “$?” in
+          0) echo should_run=true >>$GITHUB_ENV ;;
+          1) exit 1 ;;
+          2) echo should_run=false >>$GITHUB_ENV ;;
+        esac
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: run
-      if: failure()
+      if: ${{ env.should_run == 'true' }}
       run: echo running...
   python:
      strategy:
