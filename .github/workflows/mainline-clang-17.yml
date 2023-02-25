@@ -14,12 +14,13 @@ name: mainline (clang-17)
   schedule:
   - cron: 0 0,6,12,18 * * *
   workflow_dispatch: null
-permissions: write
+permissions: read-all
 jobs:
   cache_check_defconfigs:
     name: cache check (defconfigs)
     runs-on: ubuntu-latest
     container: tuxmake/clang-nightly
+    permissions: write-all
     steps:
     - uses: actions/checkout@v3
     - name: Should build run?
@@ -663,6 +664,7 @@ jobs:
     name: cache check (distribution_configs)
     runs-on: ubuntu-latest
     container: tuxmake/clang-nightly
+    permissions: write-all
     steps:
     - uses: actions/checkout@v3
     - name: Should build run?
@@ -1000,6 +1002,7 @@ jobs:
     name: cache check (allconfigs)
     runs-on: ubuntu-latest
     container: tuxmake/clang-nightly
+    permissions: write-all
     steps:
     - uses: actions/checkout@v3
     - name: Should build run?

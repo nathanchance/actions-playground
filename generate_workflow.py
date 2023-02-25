@@ -107,6 +107,7 @@ def tuxsuite_setups(job_name, tuxsuite_yml, repo, ref):
             "name": f"cache check ({job_name})",
             "runs-on": "ubuntu-latest",
             "container": f"tuxmake/clang-{llvm_version}",
+            "permissions": "write-all",
             "steps": [
                 {
                     "uses": "actions/checkout@v3",
