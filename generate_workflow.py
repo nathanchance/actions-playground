@@ -107,6 +107,9 @@ def tuxsuite_setups(job_name, tuxsuite_yml, repo, ref):
             "name": f"cache check ({job_name})",
             "runs-on": "ubuntu-latest",
             "container": f"tuxmake/clang-{llvm_version}",
+            "outputs": {
+                "should_run": "${{ steps.should_run.outputs.should_run }}",
+            },
             "permissions": "write-all",
             "steps": [
                 {
@@ -114,6 +117,7 @@ def tuxsuite_setups(job_name, tuxsuite_yml, repo, ref):
                 },
                 {
                     "name": "Should build run?",
+                    "id": "should_run",
                     "run": ('if python3 should_run.py || { ret=$?; ( exit $ret ) }; then\n'
                             '  echo "should_run=true" >>$GITHUB_OUTPUT\n'
                             'else\n'

@@ -20,10 +20,13 @@ jobs:
     name: cache check (defconfigs)
     runs-on: ubuntu-latest
     container: tuxmake/clang-nightly
+    outputs:
+      should_run: ${{ steps.should_run.outputs.should_run }}
     permissions: write-all
     steps:
     - uses: actions/checkout@v3
     - name: Should build run?
+      id: should_run
       run: |
         if python3 should_run.py || { ret=$?; ( exit $ret ) }; then
           echo "should_run=true" >>$GITHUB_OUTPUT
@@ -664,10 +667,13 @@ jobs:
     name: cache check (distribution_configs)
     runs-on: ubuntu-latest
     container: tuxmake/clang-nightly
+    outputs:
+      should_run: ${{ steps.should_run.outputs.should_run }}
     permissions: write-all
     steps:
     - uses: actions/checkout@v3
     - name: Should build run?
+      id: should_run
       run: |
         if python3 should_run.py || { ret=$?; ( exit $ret ) }; then
           echo "should_run=true" >>$GITHUB_OUTPUT
@@ -1002,10 +1008,13 @@ jobs:
     name: cache check (allconfigs)
     runs-on: ubuntu-latest
     container: tuxmake/clang-nightly
+    outputs:
+      should_run: ${{ steps.should_run.outputs.should_run }}
     permissions: write-all
     steps:
     - uses: actions/checkout@v3
     - name: Should build run?
+      id: should_run
       run: |
         if python3 should_run.py || { ret=$?; ( exit $ret ) }; then
           echo "should_run=true" >>$GITHUB_OUTPUT
