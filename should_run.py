@@ -31,8 +31,9 @@ github = {
 # Input: <owner>/<repo>/.github/workflows/<workflow>.yml@refs/heads/<branch>
 # Output: <owner>/<repo>/.github/workflows/<workflow>.yml
 workflow_path = Path(github['workflow_ref'].split('@', 1)[0])
+workflow_stem = workflow_path.stem
 # branch name is <workflow>-<job>, so that it is entirely unique for updating
-branch = f"{workflow_path.stem}-{github['job']}"
+branch = f"{workflow_stem}-{github['job']}"
 
 # Configure git
 repo = Path(github['workspace'], github['workspace'].name)
@@ -76,7 +77,7 @@ compiler = subprocess.run(['clang', '--version'],
 # Output: <tree>
 # Have to split then join because tree could have a hyphen
 # pylint: disable-next=invalid-name ??
-tree_name = '-'.join(branch.split('-')[0:-2])
+tree_name = '-'.join(workflow_stem.split('-')[0:-2])
 with Path(github['workspace'], 'generator.yml').open(encoding='utf-8') as file:
     config = yaml.safe_load(file)
 url, ref = utils.get_repo_ref(config, tree_name)
