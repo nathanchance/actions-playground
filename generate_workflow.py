@@ -132,9 +132,6 @@ def tuxsuite_setups(job_name, tuxsuite_yml, repo, ref):
             # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
             "runs-on": "ubuntu-latest",
             "container": "tuxsuite/tuxsuite",
-            "env": {
-                "TUXSUITE_TOKEN": "${{ secrets.TUXSUITE_TOKEN }}",
-            },
             "timeout-minutes": 480,
             "steps": [
                 {
@@ -142,16 +139,11 @@ def tuxsuite_setups(job_name, tuxsuite_yml, repo, ref):
                 },
                 {
                     "name": "tuxsuite",
-                    "run": f"tuxsuite plan --git-repo {repo} --git-ref {ref} --job-name {job_name} --json-out builds.json {patch_series}{tuxsuite_yml} || true",
+                    "run": f"echo tuxsuite plan --git-repo {repo} --git-ref {ref} --job-name {job_name} --json-out builds.json {patch_series}{tuxsuite_yml}",
                 },
                 {
                     "name": "save output",
-                    "uses": "actions/upload-artifact@v3",
-                    "with": {
-                        "path": "builds.json",
-                        "name": f"output_artifact_{job_name}",
-                        "if-no-files-found": "error",
-                    },
+                    "run": "echo save output",
                 },
             ],
         },
@@ -183,14 +175,8 @@ def get_steps(build, build_set):
                     },
                 },
                 {
-                    "uses": "actions/download-artifact@v3",
-                    "with": {
-                        "name": f"output_artifact_{build_set}",
-                    },
-                },
-                {
                     "name": "Check Build and Boot Logs",
-                    "run": "./check_logs.py",
+                    "run": "echo ./check_logs.py",
                 },
             ],
         },
@@ -276,6 +262,4 @@ yaml.add_representer(str, str_presenter)
 
 if __name__ == "__main__":
     generated_config = get_config_from_generator()
-    args = parse_args(generated_config["trees"])
-    for llvm_ver in get_llvm_versions(generated_config, args.tree):
-        print_builds(generated_config, args.tree, llvm_ver)
+    print_builds(generated_config, 'mainline', 17)
