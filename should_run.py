@@ -21,15 +21,18 @@ if os.environ['GITHUB_REPOSITORY_OWNER'] != 'nathanchance':
 
 github = {
     'actor': os.environ['GITHUB_ACTOR'],
+    'job': os.environ['GITHUB_JOB'],
     'token': os.environ['GITHUB_TOKEN'],
     'repository': os.environ['GITHUB_REPOSITORY'],
     'workflow_ref': os.environ['GITHUB_WORKFLOW_REF'],
     'workspace': Path(os.environ['GITHUB_WORKSPACE']),
 }
 
-# Get name of calling workflow for branch name (without .yml)
-# GITHUB_WORKFLOW_REF is <owner>/<repo>/.github/workflows/<workflow>.yml@refs/heads/<branch>
-branch = Path(github['workflow_ref'].split('@', 1)[0]).stem
+# Input: <owner>/<repo>/.github/workflows/<workflow>.yml@refs/heads/<branch>
+# Output: <owner>/<repo>/.github/workflows/<workflow>.yml
+workflow_path = Path(github['workflow_ref'].split('@', 1)[0])
+# branch name is <workflow>-<job>, so that it is entirely unique for updating
+branch = f"{workflow_path.stem}-{github['job']}"
 
 # Configure git
 repo = Path(github['workspace'], github['workspace'].name)
