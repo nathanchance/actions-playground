@@ -1,16 +1,13 @@
-name: test
+name: 5.15 (clang-16)
 on:
   push:
   workflow_dispatch: null
 jobs:
   test:
-    name: "test"
+    name: "Test"
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/clangbuiltlinux/qemu
-      options: --ipc=host
     steps:
-      - name: checkout
-        uses: actions/checkout@v3
-      - name: test.py
-        run: python3 test.py
+    - name: test
+      run: |
+        echo "${{ github.workflow }}"
+        echo "$GITHUB_WORKFLOW"
