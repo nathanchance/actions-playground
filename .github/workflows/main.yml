@@ -13,6 +13,6 @@ jobs:
       with:
         python-version: '3.x'
     - name: pip install -r requirements.txt
-      run: pip install -r requirements.txt
+      run: python3 -m pip install -r requirements.txt
     - name: Test
-      run: python3 -c 'import os; print(os.environ)'
+      run: python3 -c 'import os, requests; print(os.environ)'
