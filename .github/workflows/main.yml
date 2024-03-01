@@ -3,16 +3,27 @@ on:
   push:
   workflow_dispatch: null
 jobs:
-  test:
-    name: "Test"
+  test-clang-18:
+    name: "Test korg-clang-18"
     runs-on: ubuntu-latest
-    container: tuxmake/x86_64_korg-clang-13
+    container: tuxmake/x86_64_korg-clang-18
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: 3.x
+    - name: prepare virtual environment
+      run: apt install -y python3-venv && python3 -m venv venv && source venv/bin/activate
     - name: pip install -r requirements.txt
-      run: python3 -m pip install -r requirements.txt
+      run: pip install -r requirements.txt
+    - name: Test
+      run: python3 -c 'import os, requests; print(os.environ)'
+  test-clang-nightly:
+    name: "Test clang-nightly"
+    runs-on: ubuntu-latest
+    container: tuxmake/x86_64_clang-nightly
+    steps:
+    - uses: actions/checkout@v4
+    - name: prepare virtual environment
+      run: apt install -y python3-venv && python3 -m venv venv && source venv/bin/activate
+    - name: pip install -r requirements.txt
+      run: pip install -r requirements.txt
     - name: Test
       run: python3 -c 'import os, requests; print(os.environ)'
