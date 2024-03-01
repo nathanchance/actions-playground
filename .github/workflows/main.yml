@@ -9,21 +9,17 @@ jobs:
     container: tuxmake/x86_64_korg-clang-18
     steps:
     - uses: actions/checkout@v4
-    - name: prepare virtual environment
-      run: apt install -y python3-venv && python3 -m venv venv && . venv/bin/activate
-    - name: pip install -r requirements.txt
-      run: pip install -r requirements.txt
+    - name: prepare virtual environment and install dependencies
+      run: apt install -y python3-venv && python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt
     - name: Test
-      run: python3 -c 'import os, requests; print(os.environ)'
+      run: . venv/bin/activate && python3 -c 'import os, requests; print(os.environ)'
   test-clang-nightly:
     name: "Test clang-nightly"
     runs-on: ubuntu-latest
     container: tuxmake/x86_64_clang-nightly
     steps:
     - uses: actions/checkout@v4
-    - name: prepare virtual environment
-      run: apt install -y python3-venv && python3 -m venv venv && . venv/bin/activate
-    - name: pip install -r requirements.txt
-      run: pip install -r requirements.txt
+    - name: prepare virtual environment and install dependencies
+      run: apt install -y python3-venv && python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt
     - name: Test
-      run: python3 -c 'import os, requests; print(os.environ)'
+      run: . venv/bin/activate && python3 -c 'import os, requests; print(os.environ)'
