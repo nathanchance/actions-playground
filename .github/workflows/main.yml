@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: prepare virtual environment
-      run: apt install -y python3-venv && python3 -m venv venv && source venv/bin/activate
+      run: apt install -y python3-venv && python3 -m venv venv && . venv/bin/activate
     - name: pip install -r requirements.txt
       run: pip install -r requirements.txt
     - name: Test
@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: prepare virtual environment
-      run: apt install -y python3-venv && python3 -m venv venv && source venv/bin/activate
+      run: apt install -y python3-venv && python3 -m venv venv && . venv/bin/activate
     - name: pip install -r requirements.txt
       run: pip install -r requirements.txt
     - name: Test
