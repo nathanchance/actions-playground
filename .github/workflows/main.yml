@@ -1,4 +1,4 @@
-name: 5.15 (clang-16)
+name: Main
 on:
   push:
   workflow_dispatch: null
@@ -6,8 +6,10 @@ jobs:
   test:
     name: "Test"
     runs-on: ubuntu-latest
+    container: tuxmake/x86_64_korg-clang-13
     steps:
-    - name: test
-      run: |
-        echo "${{ github.workflow }}"
-        echo "$GITHUB_WORKFLOW"
+    - uses: actions/checkout@v4
+    - name: pip install -r requirements.txt
+      run: apt-get install -y python3-pip && pip install -r requirements.txt
+    - name: Test
+      run: python3 -c 'import os; print(os.environ)'
