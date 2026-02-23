@@ -3,23 +3,39 @@ on:
   push:
   workflow_dispatch: null
 jobs:
+  test-qemu:
+    name: QEMU
+    runs-on: ubuntu-latest
+    container: ghcr.io/clangbuiltlinux/qemu
+    steps:
+    - uses: actions/checkout@v6
+    - uses: astral-sh/setup-uv@v7
+    - name: Test
+      run: uvx ruff --version
   test-clang-18:
     name: "Test korg-clang-18"
     runs-on: ubuntu-latest
     container: tuxmake/x86_64_korg-clang-18
     steps:
-    - uses: actions/checkout@v4
-    - name: prepare virtual environment and install dependencies
-      run: apt install -y python3-venv && python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt
+    - uses: actions/checkout@v6
+    - uses: astral-sh/setup-uv@v7
     - name: Test
-      run: . venv/bin/activate && python3 -c 'import os, requests; print(os.environ)'
+      run: uvx ruff --version
+  test-clang-22:
+    name: "Test korg-clang-22"
+    runs-on: ubuntu-latest
+    container: tuxmake/x86_64_korg-clang-22
+    steps:
+    - uses: actions/checkout@v6
+    - uses: astral-sh/setup-uv@v7
+    - name: Test
+      run: uvx ruff --version
   test-clang-nightly:
     name: "Test clang-nightly"
     runs-on: ubuntu-latest
     container: tuxmake/x86_64_clang-nightly
     steps:
-    - uses: actions/checkout@v4
-    - name: prepare virtual environment and install dependencies
-      run: apt install -y python3-venv && python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt
+    - uses: actions/checkout@v6
+    - uses: astral-sh/setup-uv@v7
     - name: Test
-      run: . venv/bin/activate && python3 -c 'import os, requests; print(os.environ)'
+      run: uvx ruff --version
